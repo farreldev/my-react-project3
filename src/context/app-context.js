@@ -12,8 +12,8 @@ export function AppProvider({ Children }) {
 
     useEffect(() => {
         const user = {
-        name: "John Doe",
-        avatar: "https://randomuser.me/api/portraits/men/85.jpg",
+            name: "John Doe",
+            avatar: "https://randomuser.me/api/portraits/men/85.jpg",
         };
         setUser(user);
     }, []);
