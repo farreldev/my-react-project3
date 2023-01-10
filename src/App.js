@@ -1,7 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-import { AppProvider } from './context/app-context';
 import Home from './components/Home';
-// import About from './components/About';
+import About from './components/About';
 import Header from './components/Header';
 import AboutTeam from './components/AboutTeam';
 
@@ -11,7 +10,6 @@ function App() {
   return (
     <div className='overflow-x-hidden h-screen bg-white dark:bg-gray-700'>
       <div className='max-w-[1200px] mx-auto px-4'>
-        <AppProvider>
           <Header />
           {/* <header className='border-b p-4 mb-5 flex justify-between items-center'>
             <nav className='space-x-7'>
@@ -26,12 +24,10 @@ function App() {
           <main className='px-4 dark:text-white'>
               <Routes>
                 <Route path="/" element={<Home />} />
-                {/* <Route path="about" element={<About />} /> */}
+                <Route path="about" element={<About />} />
                 <Route path="/about/team" element={<AboutTeam />} />
               </Routes>
           </main>
-
-        </AppProvider>
 
       </div>
       
