@@ -33,9 +33,5 @@ export function AppProvider({ Children }) {
         }
     }, [theme]);
     
-    return (
-        <AppContext.Provider value={appContextVal}>
-            {Children}
-        </AppContext.Provider>
-    );
+    return <AppContext.Provider value={appContextVal}> {Children} </AppContext.Provider>
 }
