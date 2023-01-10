@@ -11,14 +11,6 @@ export function AppProvider({ Children }) {
     const [theme, setTheme] = useState("light");
 
     useEffect(() => {
-        if (theme === "dark") {
-        document.documentElement.classList.add("dark");
-        } else {
-        document.documentElement.classList.remove("dark");
-        }
-    }, [theme]);
-
-    useEffect(() => {
         const user = {
         name: "John Doe",
         avatar: "https://randomuser.me/api/portraits/men/85.jpg",
@@ -32,6 +24,15 @@ export function AppProvider({ Children }) {
         setUser,
         setTheme,
     };
+
+    useEffect(() => {
+        if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+        } else {
+        document.documentElement.classList.remove("dark");
+        }
+    }, [theme]);
+    
     return (
         <AppContext.Provider value={appContextVal}>
             {Children}
