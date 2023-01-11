@@ -1,16 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/app-context';
-
+import Calculate from './Calculate';
 
 const About = () => {
     const context = useAppContext();
     return(
         <div>
-            <div className='flex items-center space-x-3 mb-3'>
-                <button className='border py-1 px-3'> - </button>
-                <span>0</span>
-                <button className='border py-1 px-3'> + </button>
-            </div>
+            <Calculate />
             <div className='flex flex-col items-start my-5'>
                 {/* <span className='capitalize block mb-2'>{context.theme}</span> */}
                 <button onClick={() => context.setTheme(context.theme === "dark" ? "light" : "dark")} className='border shadow-lg py-1 px-5'>Toggle to <span className='capitalize'>{context.theme === "dark" ? "light" : "dark"}</span></button>
