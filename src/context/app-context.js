@@ -6,9 +6,9 @@ export function useAppContext() {
   return useContext(AppContext);
 }
 
-export function AppProvider({ Children }) {
+export function AppProvider({ children }) {
     const [user, setUser] = useState({});
-    const [theme, setTheme] = useState("light");
+    const [theme, setTheme] = useState('dark');
 
     useEffect(() => {
         const user = {
@@ -18,20 +18,20 @@ export function AppProvider({ Children }) {
         setUser(user);
     }, []);
 
+    useEffect(() => {
+        if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+    }, [theme]);
+
     const appContextVal = {
         user,
         theme,
         setUser,
         setTheme,
     };
-
-    useEffect(() => {
-        if (theme === "dark") {
-        document.documentElement.classList.add("dark");
-        } else {
-        document.documentElement.classList.remove("dark");
-        }
-    }, [theme]);
     
-    return <AppContext.Provider value={appContextVal}> {Children} </AppContext.Provider>
+    return <AppContext.Provider value={appContextVal}> {children} </AppContext.Provider>
 }
