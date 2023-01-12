@@ -1,30 +1,16 @@
-import React, { useReducer } from 'react'
-
-function fnReducer(state, action) {
-    switch (action.type) {
-        case 'increment':
-            return {count: state.count + action.payload};
-        case 'decrement':
-            return {count: state.count - action.payload};
-        default:
-            throw new Error('Unexpected Action!')
-    }
-}
-
-const initState = {
-    count: 0,
-    theme: 'light'
-}
+import { useAppContext } from '../context/app-context';
 
 export default function Calculate() {
+    const [state, dispatch] = useAppContext();
+    const num = 1;
 
-    const [state, dispatch] = useReducer(fnReducer, initState);
-
-  return (
-    <div className='flex items-center space-x-3 mb-3'>
-        <button onClick={() => dispatch({type: 'decrement', payload: 2})} className='border py-1 px-3'> - </button>
-        <span>{state.count}</span>
-        <button onClick={() => dispatch({type: 'increment', payload: 2})} className='border py-1 px-3'> + </button>
-    </div>
-  )
+    return (
+        <div>
+            <div className='flex items-center space-x-3 mb-5'>
+                <button onClick={() => dispatch({type: 'decrement', payload: num})} className='border py-1 px-3'> - </button>
+                <span>{state.count}</span>
+                <button onClick={() => dispatch({type: 'increment', payload: num})} className='border py-1 px-3'> + </button>
+            </div>
+        </div>
+    )
 }

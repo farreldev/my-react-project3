@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from "react"
+import { createContext, useEffect, useContext, useReducer } from "react"
 
 export const AppContext = createContext({});
 
@@ -6,32 +6,37 @@ export function useAppContext() {
   return useContext(AppContext);
 }
 
+function fnReduce(state, action) {
+    switch (action.type) {
+        case 'increment':
+            return {...state, count: state.count + action.payload};
+        case 'decrement':
+            return {...state, count: state.count - action.payload};
+        case 'updateUser':
+            return {...state, user: action.payload};
+        default:
+            throw new Error(`Unexpected action type: ${action.type}`);
+    }
+}
+
+const initState = {
+    count: 85,
+    user: {},
+}
+
 export function AppProvider({ children }) {
-    const [user, setUser] = useState({});
-    const [theme, setTheme] = useState('dark');
+    const [state, dispatch] = useReducer(fnReduce, initState);
 
     useEffect(() => {
         const user = {
             name: "John Doe",
-            avatar: "https://randomuser.me/api/portraits/men/85.jpg",
+            avatar: `https://randomuser.me/api/portraits/men/${state.count}.jpg`,
         };
-        setUser(user);
-    }, []);
+        // setUser(user);
+        dispatch({ type: 'updateUser', payload: user })
+    }, [state.count]);
 
-    useEffect(() => {
-        if (theme === "dark") {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-        }
-    }, [theme]);
-
-    const appContextVal = {
-        user,
-        theme,
-        setUser,
-        setTheme,
-    };
+    const appContextVal = [state, dispatch];
     
     return <AppContext.Provider value={appContextVal}> {children} </AppContext.Provider>
 }
